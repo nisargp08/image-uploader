@@ -1,5 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
+
+.btn {
+  @apply rounded-lg text-gray-900 bg-white border border-gray-300 py-2 px-4 font-medium text-xs sm:text-sm cursor-pointer text-center transition focus:outline-none focus:ring focus:ring-2;
+}
+.btn-blue {
+  @apply bg-blue-500 text-white hover:bg-blue-600 border-none;
+}
 @tailwind utilities;
