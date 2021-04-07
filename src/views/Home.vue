@@ -51,9 +51,29 @@
               </div>
               <!-- After Drag state - When one or more than one image has been uploaded -->
               <div class="overflow-y-auto max-h-96" v-if="previewFiles.length">
-                <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 px-2">
-                  <div class="flex" v-for="(image, index) in previewFiles" :key="index">
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-4 px-2"
+                >
+                  <div
+                    class="flex relative"
+                    v-for="(image, index) in previewFiles"
+                    :key="index"
+                  >
                     <img class="rounded-md object-cover" :src="image" />
+                    <!-- Remove overlay -->
+                    <div
+                      class="absolute inset-0 remove-overlay rounded-md"
+                    >
+                     <div class="flex items-center justify-end mt-2 mr-2">
+                       <!-- Remove button -->
+                       <button class="removeIcon btn text-xs py-1 px-2" @click="removeImage(index)" title="Remove image">
+                          <span class="mr-1">Remove</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 p-1 font-bold rounded-full inline-block bg-red-500 text-white" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                          </svg>
+                        </button>
+                     </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -83,9 +103,16 @@
         </div>
       </div>
       <!-- Error box -->
-      <div class="bg-white rounded-xl shadow-card-shadow max-w-xl mx-auto p-4" v-if="errMessages.length">
+      <div
+        class="bg-white rounded-xl shadow-card-shadow max-w-xl mx-auto p-4"
+        v-if="errMessages.length"
+      >
         <ul class="text-sm font-medium">
-          <li class="list-disc ml-8 text-red-500" v-for="(error,index) in errMessages" :key="index">
+          <li
+            class="list-disc ml-8 text-red-500"
+            v-for="(error, index) in errMessages"
+            :key="index"
+          >
             {{ error }}
           </li>
         </ul>
@@ -178,6 +205,12 @@ export default {
       // Call the onload function by calling 'readAsDataURL'
       reader.readAsDataURL(file);
     },
+    // Remove image from array
+    removeImage(index) {
+      // Remove the image from both file array
+      this.storeFiles.splice(index, 1);
+      this.previewFiles.splice(index, 1);
+    },
     // Clear file storage and error message arrays
     clearFileBuffer() {
       this.storeFiles = [];
@@ -187,3 +220,18 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.remove-overlay {
+  .removeIcon{
+    display: none;
+  }
+  &:hover {
+    background: linear-gradient(to bottom left, rgba(31,41,55,1) 0px, transparent);
+    .removeIcon{
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+</style>
