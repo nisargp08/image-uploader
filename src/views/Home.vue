@@ -50,9 +50,11 @@
                 </p>
               </div>
               <!-- After Drag state - When one or more than one image has been uploaded -->
-              <div v-if="previewFiles.length">
-                <div v-for="(image, index) in previewFiles" :key="index">
-                  <img :src="image" />
+              <div class="overflow-y-auto max-h-96" v-if="previewFiles.length">
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 px-2">
+                  <div class="flex" v-for="(image, index) in previewFiles" :key="index">
+                    <img class="rounded-md object-cover" :src="image" />
+                  </div>
                 </div>
               </div>
             </div>
