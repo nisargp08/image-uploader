@@ -10,6 +10,9 @@ module.exports = {
       },
       fontSize : {
         'xxs' : '10px'
+      },
+      minHeight : {
+        'lg' : '32rem'
       }
     },
   },
