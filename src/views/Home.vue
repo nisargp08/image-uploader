@@ -61,18 +61,29 @@
                   >
                     <img class="rounded-md object-cover" :src="image" />
                     <!-- Remove overlay -->
-                    <div
-                      class="absolute inset-0 remove-overlay rounded-md"
-                    >
-                     <div class="flex items-center justify-end mt-2 mr-2">
-                       <!-- Remove button -->
-                       <button class="removeIcon btn text-xs py-1 px-2" @click="removeImage(index)" title="Remove image">
+                    <div class="absolute inset-0 remove-overlay rounded-md">
+                      <div class="flex items-center justify-end mt-2 mr-2">
+                        <!-- Remove button -->
+                        <button
+                          class="removeIcon btn text-xs py-1 px-2"
+                          @click="removeImage(index)"
+                          title="Remove image"
+                        >
                           <span class="mr-1">Remove</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 p-1 font-bold rounded-full inline-block bg-red-500 text-white" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-4 w-4 p-1 font-bold rounded-full inline-block bg-red-500 text-white"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"
+                            />
                           </svg>
                         </button>
-                     </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -98,6 +109,34 @@
                   multiple
                 />
               </div>
+            </div>
+          </div>
+          <!-- Upload button -->
+          <div class="mt-4 border-t border-gray-200">
+            <div class="pt-4">
+              <button
+                class="btn flex justify-center bg-success border border-success ring-success-hover ring-opacity-50 hover:bg-success-hover text-white w-full"
+                :disabled="disableCheck"
+                @click="uploadFiles"
+              >
+                <div class="flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4 sm:w-6 sm:h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                    />
+                  </svg>
+                  <span class="ml-2">Upload files</span>
+                </div>
+              </button>
             </div>
           </div>
         </div>
@@ -135,7 +174,22 @@ export default {
       errMessages: [],
     };
   },
+  computed: {
+    disableCheck() {
+      if (this.previewFiles.length > 0 && this.storeFiles.length > 0) {
+        // Enable the button
+        return false;
+      } else {
+        // Disable the button
+        return true;
+      }
+    },
+  },
   methods: {
+    // Upload files to server
+    uploadFiles() {
+      console.log("UPLOADING");
+    },
     // When files are added using input button
     inputFiles($event) {
       // Clear file storage buffer
@@ -162,8 +216,11 @@ export default {
       // Clear file storage buffer
       this.clearFileBuffer();
       const files = $event.dataTransfer.files;
-      // Convert files to array and iterate through it
-      Array.from(files).forEach((file) => this.addImage(file));
+      
+      if (files.length) {
+        // Convert files to array and iterate through it
+        Array.from(files).forEach((file) => this.addImage(file));
+      }
     },
     // Add image to array to preview and store
     addImage(file) {
@@ -181,7 +238,6 @@ export default {
       // Validate file input type
       if (!file.type.match("image.*")) {
         this.errMessages.push(`${file.name} is not a valid image type`);
-        console.log(this.errMessages);
         isValid = false;
       }
       // Validate file size
@@ -223,12 +279,16 @@ export default {
 
 <style lang="scss" scoped>
 .remove-overlay {
-  .removeIcon{
+  .removeIcon {
     display: none;
   }
   &:hover {
-    background: linear-gradient(to bottom left, rgba(31,41,55,1) 0px, transparent);
-    .removeIcon{
+    background: linear-gradient(
+      to bottom left,
+      rgba(31, 41, 55, 1) 0px,
+      transparent
+    );
+    .removeIcon {
       display: flex;
       align-items: center;
     }

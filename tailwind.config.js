@@ -13,6 +13,11 @@ module.exports = {
       },
       minHeight : {
         'lg' : '32rem'
+      },
+      colors : {
+        'success' : '#28a745',
+        'success-hover' : '#218838',
+        'success-ring' : 'rgb(40 167 69)',
       }
     },
   },
