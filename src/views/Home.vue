@@ -53,7 +53,7 @@
                     <p
                       class="text-xs sm:text-sm leading-5 font-medium text-blue-500"
                     >
-                      (10MB max)
+                      (10MB max - 10 files at a time)
                     </p>
                   </div>
                   <!-- After Drag state - When one or more than one image has been uploaded -->
@@ -289,6 +289,14 @@ import axios from "axios";
 
 export default {
   name: "Home",
+  // Set apiURL on mount 
+  mounted() {
+    if(process.env.NODE_ENV === 'production'){
+      this.apiURL = "https://np-image-uploader.herokuapp.com/api/file_upload/";
+    } else {
+      this.apiURL = "http://localhost:3000/api/file_upload/";
+    }
+  },
   data() {
     return {
       isDragging: false,
@@ -302,7 +310,7 @@ export default {
         isDone: false,
         isErr: false,
       },
-      apiURL: "http://localhost:3000/api/file_upload/",
+      apiURL: "",
       apiResponse: [],
       clipboardMessage: "",
     };
@@ -345,7 +353,6 @@ export default {
         response.data.forEach((data) => {
           this.apiResponse.push(data);
         });
-        console.log(this.apiResponse);
         // Set state to done
         this.apiState.isDone = true;
       } catch (error) {
