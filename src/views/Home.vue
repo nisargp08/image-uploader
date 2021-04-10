@@ -3,9 +3,9 @@
     <div class="flex flex-col justify-center flex-1">
       <div class="w-100 p-4 space-y-2">
         <!-- Show when copy to clipboard -->
-        <notification v-if="clipboardMessage.length > 0">{{
+        <app-notification v-if="clipboardMessage.length > 0">{{
           clipboardMessage
-        }}</notification>
+        }}</app-notification>
         <!-- Show when not uploading -->
         <template v-if="!isUploading">
           <div
@@ -156,7 +156,7 @@
         </template>
         <!-- When uploading -->
         <template v-if="apiState.isLoading">
-          <loading-component></loading-component>
+          <app-loading></app-loading>
         </template>
         <!-- When uploading is done and we have date from the api -->
         <template v-else-if="apiState.isDone">
@@ -279,7 +279,7 @@
         </div>
       </div>
     </div>
-    <footer-component></footer-component>
+    <app-footer></app-footer>
   </div>
 </template>
 
@@ -316,9 +316,9 @@ export default {
     };
   },
   components: {
-    LoadingComponent: () => import("@/components/Loading.vue"),
-    Notification: () => import("@/components/Notification.vue"),
-    FooterComponent: () => import("@/views/Footer.vue"),
+    appLoading: () => import("@/components/Loading.vue"),
+    appNotification: () => import("@/components/Notification.vue"),
+    appFooter: () => import("@/views/Footer.vue"),
   },
   computed: {
     disableCheck() {
