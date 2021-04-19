@@ -1,6 +1,9 @@
 <template>
   <div class="loading-component">
     <div class="max-w-xs mx-auto">
+      <div class="bg-white rounded-xl shadow-card-shadow max-w-sm w-full p-4 text-sm mb-4">
+        First upload might take 15-30 seconds as heroku servers go to sleep when idle😴
+      </div>
       <div
         class="bg-white rounded-xl shadow-card-shadow max-w-sm w-full h-36 px-8 flex items-center"
       >
