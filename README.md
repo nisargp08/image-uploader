@@ -11,6 +11,7 @@
     <a href="https://np-image-uploader.netlify.app/">
       Demo
     </a>
+     |
      <a href="https://github.com/nisargp08/image-uploader-server">
         Server
      </a>
