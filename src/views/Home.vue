@@ -149,7 +149,7 @@ export default {
   mounted() {
     let url;
     if (process.env.NODE_ENV === "production") {
-      url = "https://np-image-uploader.herokuapp.com/api/file_upload/";
+      url = "https://np-image-uploader.up.railway.app/api/file_upload";
     } else {
       url = "http://localhost:3000/api/file_upload/";
     }
